@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { URL } from "../../../URL";
 import { useNavigate } from "react-router-dom";
 function Login() {
     let navigate = useNavigate();
@@ -27,9 +28,12 @@ function Login() {
         if (!emailError && !passwordError) {
             try {
                 let userData = { email, password }
-                let token = await axios.post("http://localhost:4000/user/loginUser", userData)
+                let token = await axios.post(URL + "/user/loginUser", userData)
                 sessionStorage.setItem("token", token.data.token)
-                navigate("/home")
+                sessionStorage.setItem("uid", token.data.uid)
+                if (token.data.status == "Success") {
+                    navigate("/home")
+                }
             } catch (e) {
                 console.log(e.message)
             }

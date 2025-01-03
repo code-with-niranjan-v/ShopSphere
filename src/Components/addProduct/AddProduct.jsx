@@ -1,11 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
+import MenuIcon from '@mui/icons-material/Menu';
 import NavigationBar from "../navigationBar/NavigationBar";
 function AddProduct() {
     const [productName, setProductName] = useState("");
     const [productDescription, setProductDescription] = useState("");
     const [productPrice, setProductPrice] = useState(0.0);
     const [productImage, setProductImage] = useState(null);
+    const [isVisible, setVisible] = useState(false);
+    const toggleNav = () => {
+        setVisible(!isVisible);
+    };
 
     function validateDetails() {
         return (productImage != "" && productDescription != "" && productPrice != "" && productImage != null);
@@ -38,9 +43,14 @@ function AddProduct() {
 
     return (<>
         <div className=" w-screen h-screen flex flex-row space-x-2">
-            <NavigationBar></NavigationBar>
+            <div className={`sm:block ${isVisible ? 'block' : 'hidden'}`}>
+                <NavigationBar />
+            </div>
 
             <div className='flex flex-col flex-1 '>
+                <div className="sm:hidden p-3 m-2 h-11 rounded-sm bg-purple-500 w-14 flex justify-center" onClick={toggleNav} >
+                    <MenuIcon style={{ color: 'white' }}></MenuIcon>
+                </div>
                 <p className="font-bold text-black text-lg p-3 m-2">Add New Product</p>
                 <p className=" text-black text-lg p-3 mt-3">Enter the Product Name</p>
                 <input type="text" placeholder="Product Name" className="mt-3 ms-2 bg-slate-100 p-3 rounded-md focus:outline-none w-2/5" value={productName} onChange={(e) => { setProductName(e.target.value) }} />

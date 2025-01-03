@@ -1,7 +1,25 @@
+import { useNavigate } from 'react-router-dom';
 function ProductCard({ product }) {
+
+    const naviagte = useNavigate();
+    function handleProductClick(props) {
+        naviagte("/product", {
+            state: {
+                productName: product.productName,
+                productDescription: product.productDescription,
+                productPrice: product.productPrice,
+                review: product.review,
+                id: product._id
+
+            }
+        })
+        const urls = JSON.stringify(product.urls)
+        localStorage.setItem("urls", urls)
+    }
+
     console.log(product.productImageName)
     return (
-        <div className="border rounded shadow p-4 ">
+        <div className="border rounded shadow p-4 " onClick={() => { handleProductClick(product) }} >
             <img
                 src={`http://localhost:4000/uploads/${product.productImageName}`}
                 alt={product.productName}

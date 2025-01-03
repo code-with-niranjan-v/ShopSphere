@@ -3,6 +3,7 @@ import axios from 'axios';
 import ProductCard from '../productCard/ProductCard.jsx';
 import MenuIcon from '@mui/icons-material/Menu';
 import NavigationBar from '../navigationBar/NavigationBar.jsx';
+
 function Home() {
     const [products, setProducts] = useState([]);
     const [isVisible, setVisible] = useState(false);
@@ -10,7 +11,11 @@ function Home() {
         setVisible(!isVisible);
     };
 
+
+
     const [searchQuery, setSearch] = useState("")
+
+
 
     async function handleSearch() {
         if (searchQuery != "") {
