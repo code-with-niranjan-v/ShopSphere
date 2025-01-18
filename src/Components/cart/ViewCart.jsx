@@ -31,7 +31,7 @@ function ViewCart() {
     useEffect(() => {
         async function fetchProducts() {
             try {
-                loadProducts()
+                await loadProducts()
 
                 console.log(productsData)
             } catch (error) {

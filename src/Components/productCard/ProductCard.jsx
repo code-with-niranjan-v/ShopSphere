@@ -3,16 +3,7 @@ function ProductCard({ product }) {
 
     const naviagte = useNavigate();
     function handleProductClick(props) {
-        naviagte("/product", {
-            state: {
-                productName: product.productName,
-                productDescription: product.productDescription,
-                productPrice: product.productPrice,
-                review: product.review,
-                id: product._id
-
-            }
-        })
+        naviagte("/product/" + product._id)
         const urls = JSON.stringify(product.urls)
         localStorage.setItem("urls", urls)
     }

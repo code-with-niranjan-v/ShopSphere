@@ -1,13 +1,26 @@
 import { useState } from "react";
 import ImageSlider from "../../imageSlider/ImageSilder";
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from "react";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import axios from "axios";
+import { URL } from "../../../URL";
 function Product() {
     const navigate = useNavigate()
     const location = useLocation();
-    const { productName, productDescription, productPrice, review, id } = location.state || {
+    const params = useParams();
+    const [productData, setProductData] = useState();
+    console.log(params.id);
+    useEffect(() => {
+        async function getProduct(id) {
+            const data = await axios.post(URL + "/user" + "/getProductById", { productId: id })
+            setProductData(data.data.data)
+            console.log(productData)
+        }
+
+        getProduct(params.id)
+    }, []);
+    const { productName, productDescription, productPrice, review, id } = productData || {
         productName: "Vivobook Pro 15 OLED (K6502)",
         productDescription: "Lighting up your creativity is easier than ever with the powerful Vivobook Pro 15 OLED. Equipped with the 13th Gen Intel® Core™ H-series CPU, a dual-fan, triple-vented cooling system and Up to NVIDIA® GeForce RTX™ 4050 Laptop GPU2, it’s designed to deliver maximum performance for everything creative, whether you’re an artist, a vlogger, a video creator, a musician, or just someone who likes to have fun. For maximum gaming power we’ve included a MUX switch that unleashes the full power of the GPU. Any kind of visual creation will look its best on the fantastic up to 2.8K OLED display, with its super-smooth 120 Hz refresh rate and ultra-accurate vivid colors, and your ears will really appreciate the powerful Dolby Atmos® sound system with its multi-dimensional audio. Get creative, get Vivobook Pro 15 OLED!",
         productPrice: "150670",
